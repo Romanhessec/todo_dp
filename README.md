@@ -47,7 +47,8 @@ In the refactored version, the following design patterns are applied:
 
 The implementation is done in **Python**, using the following technologies:
 
-- **Tkinter / Console / Web (Flask)** — for the user interface  
+- **Flask** — for the web framework  
+- **Tkinter / Console** — for alternative user interfaces  
 - **JSON** — for data persistence  
 - **datetime** — for managing task deadlines  
 - **pytest / unittest** — for testing and validating components  
@@ -64,12 +65,31 @@ The analysis will be presented as a technical article highlighting differences i
 - Code clarity and readability  
 - Ease of maintenance and extensibility  
 - Degree of responsibility separation (SRP – Single Responsibility Principle)  
-- Component reusability  
+ Component reusability  
 
 #### 🔸 Quantitative Metrics
 - Lines of Code (LOC)  
 - Cyclomatic complexity (measured with *radon*)  
 - Number of classes and their relationships  
 - Time required to add new functionality  
-
 ---
+
+### 📦 Installation Instructions
+
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   cd sasps-todo-app
+   ```
+
+2. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. Run the application:
+   ```
+   python run.py
+   ```
+
+4. Open your web browser and navigate to `http://127.0.0.1:5000` to access the ToDo application.
