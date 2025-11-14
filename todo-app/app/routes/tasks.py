@@ -7,6 +7,7 @@ tasks_bp = Blueprint('tasks', __name__)
 @tasks_bp.route('/', methods=['GET'])
 def index():
     filter_status = request.args.get('filter', 'all')  # Get filter parameter, default to 'all'
+    sort_by = request.args.get('sort', 'none')  # Get sort parameter, default to 'none'
     tasks = load_tasks()
     
     # Filter tasks based on status
@@ -16,7 +17,15 @@ def index():
         tasks = [task for task in tasks if task['status'] == 'completed']
     # If 'all', show all tasks (no filtering needed)
     
-    return render_template('index.html', tasks=tasks, current_filter=filter_status)
+    # Sort tasks based on the sort parameter
+    if sort_by == 'title':
+        tasks = sorted(tasks, key=lambda x: x['title'].lower())
+    elif sort_by == 'status':
+        # Sort by status: pending first, then completed
+        tasks = sorted(tasks, key=lambda x: (x['status'] != 'pending', x['title'].lower()))
+    # If 'none', keep original order (no sorting)
+    
+    return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by)
 
 @tasks_bp.route('/tasks', methods=['GET'])
 def get_tasks():
