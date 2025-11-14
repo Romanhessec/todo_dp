@@ -41,3 +41,21 @@ def delete_task(task_id):
     tasks = [task for task in tasks if task['id'] != task_id]
     save_tasks(tasks)
     return jsonify({'message': 'Task deleted'}), 200
+
+@tasks_bp.route('/tasks/<int:task_id>/toggle', methods=['POST'])
+def toggle_task(task_id):
+    tasks = load_tasks()
+    for task in tasks:
+        if task['id'] == task_id:
+            # Toggle status between pending and completed
+            task['status'] = 'completed' if task['status'] == 'pending' else 'pending'
+            save_tasks(tasks)
+            return redirect(url_for('tasks.index'))
+    return redirect(url_for('tasks.index'))
+
+@tasks_bp.route('/tasks/<int:task_id>/delete', methods=['POST'])
+def delete_task_post(task_id):
+    tasks = load_tasks()
+    tasks = [task for task in tasks if task['id'] != task_id]
+    save_tasks(tasks)
+    return redirect(url_for('tasks.index'))

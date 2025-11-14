@@ -78,8 +78,8 @@ The analysis will be presented as a technical article highlighting differences i
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
-   cd sasps-todo-app
+   git clone https://github.com/Romanhessec/todo_dp
+   cd todo-app
    ```
 
 2. Install the required dependencies:
