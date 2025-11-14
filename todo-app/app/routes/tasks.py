@@ -1,8 +1,13 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from app.models.task import Task
 from app.utils.storage import load_tasks, save_tasks
 
 tasks_bp = Blueprint('tasks', __name__)
+
+@tasks_bp.route('/', methods=['GET'])
+def index():
+    tasks = load_tasks()
+    return render_template('index.html', tasks=tasks)
 
 @tasks_bp.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -11,12 +16,12 @@ def get_tasks():
 
 @tasks_bp.route('/tasks', methods=['POST'])
 def add_task():
-    data = request.json
+    data = request.form
     new_task = Task(title=data['title'], description=data.get('description', ''), status='pending')
     tasks = load_tasks()
     tasks.append(new_task.to_dict())
     save_tasks(tasks)
-    return jsonify(new_task.to_dict()), 201
+    return redirect(url_for('tasks.index'))
 
 @tasks_bp.route('/tasks/<int:task_id>', methods=['PUT'])
 def edit_task(task_id):
