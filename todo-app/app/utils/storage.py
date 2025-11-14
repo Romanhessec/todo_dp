@@ -1,36 +1,18 @@
-from flask import json
+import json
 import os
 
-class Storage:
-    def __init__(self, filename='data/tasks.json'):
-        self.filename = filename
-        self.tasks = self.load_tasks()
+TASKS_FILE = 'data/tasks.json'
 
-    def load_tasks(self):
-        if os.path.exists(self.filename):
-            with open(self.filename, 'r') as file:
-                return json.load(file)
-        return []
+def load_tasks():
+    """Load tasks from JSON file"""
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, 'r') as file:
+            return json.load(file)
+    return []
 
-    def save_tasks(self):
-        with open(self.filename, 'w') as file:
-            json.dump(self.tasks, file, indent=4)
-
-    def add_task(self, task):
-        self.tasks.append(task)
-        self.save_tasks()
-
-    def edit_task(self, task_id, updated_task):
-        for index, task in enumerate(self.tasks):
-            if task['id'] == task_id:
-                self.tasks[index] = updated_task
-                self.save_tasks()
-                return True
-        return False
-
-    def delete_task(self, task_id):
-        self.tasks = [task for task in self.tasks if task['id'] != task_id]
-        self.save_tasks()
-
-    def get_tasks(self):
-        return self.tasks
+def save_tasks(tasks):
+    """Save tasks to JSON file"""
+    # Ensure data directory exists
+    os.makedirs(os.path.dirname(TASKS_FILE), exist_ok=True)
+    with open(TASKS_FILE, 'w') as file:
+        json.dump(tasks, file, indent=4)

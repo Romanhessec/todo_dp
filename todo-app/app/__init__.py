@@ -7,7 +7,7 @@ def create_app():
     app.config.from_object('config')
 
     # Register blueprints
-    from .routes.tasks import tasks as tasks_blueprint
+    from .routes.tasks import tasks_bp as tasks_blueprint
     app.register_blueprint(tasks_blueprint)
 
     return app
