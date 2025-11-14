@@ -22,18 +22,18 @@
         <div id="task-list">
             <h2>Your Tasks</h2>
             
-            <div style="margin: 15px 0;">
+            <div class="filter-sort-section">
                 <strong>Filter:</strong>
-                <a href="{{ url_for('tasks.index', filter='all', sort=current_sort) }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_filter == 'all' %}#007bff{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">All</a>
-                <a href="{{ url_for('tasks.index', filter='pending', sort=current_sort) }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_filter == 'pending' %}#007bff{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">Pending</a>
-                <a href="{{ url_for('tasks.index', filter='completed', sort=current_sort) }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_filter == 'completed' %}#007bff{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">Completed</a>
+                <a href="{{ url_for('tasks.index', filter='all', sort=current_sort) }}" class="filter-btn {% if current_filter == 'all' %}active{% endif %}">All</a>
+                <a href="{{ url_for('tasks.index', filter='pending', sort=current_sort) }}" class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">Pending</a>
+                <a href="{{ url_for('tasks.index', filter='completed', sort=current_sort) }}" class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">Completed</a>
             </div>
             
-            <div style="margin: 15px 0;">
+            <div class="filter-sort-section">
                 <strong>Sort by:</strong>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='none') }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_sort == 'none' %}#28a745{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">Default</a>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='title') }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_sort == 'title' %}#28a745{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">Title</a>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='status') }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; background-color: {% if current_sort == 'status' %}#28a745{% else %}#ccc{% endif %}; color: white; border-radius: 3px;">Status</a>
+                <a href="{{ url_for('tasks.index', filter=current_filter, sort='none') }}" class="sort-btn {% if current_sort == 'none' %}active{% endif %}">Default</a>
+                <a href="{{ url_for('tasks.index', filter=current_filter, sort='title') }}" class="sort-btn {% if current_sort == 'title' %}active{% endif %}">Title</a>
+                <a href="{{ url_for('tasks.index', filter=current_filter, sort='status') }}" class="sort-btn {% if current_sort == 'status' %}active{% endif %}">Status</a>
             </div>
             
             {% if tasks %}
