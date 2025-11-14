@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task - ToDo List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Task</h1>
+        
+        <form action="{{ url_for('tasks.edit_task_submit', task_id=task.id) }}" method="POST">
+            <div>
+                <label for="title">Task Title:</label><br>
+                <input type="text" id="title" name="title" value="{{ task.title }}" required style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+            
+            <div>
+                <label for="description">Task Description:</label><br>
+                <textarea id="description" name="description" rows="4" style="width: 100%; padding: 8px; margin: 10px 0;">{{ task.description }}</textarea>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button type="submit" style="padding: 10px 20px; margin-right: 10px;">Save Changes</button>
+                <a href="{{ url_for('tasks.index') }}" style="padding: 10px 20px; text-decoration: none; background-color: #ccc; color: black; border-radius: 3px;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
