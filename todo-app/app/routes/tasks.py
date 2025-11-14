@@ -6,8 +6,17 @@ tasks_bp = Blueprint('tasks', __name__)
 
 @tasks_bp.route('/', methods=['GET'])
 def index():
+    filter_status = request.args.get('filter', 'all')  # Get filter parameter, default to 'all'
     tasks = load_tasks()
-    return render_template('index.html', tasks=tasks)
+    
+    # Filter tasks based on status
+    if filter_status == 'pending':
+        tasks = [task for task in tasks if task['status'] == 'pending']
+    elif filter_status == 'completed':
+        tasks = [task for task in tasks if task['status'] == 'completed']
+    # If 'all', show all tasks (no filtering needed)
+    
+    return render_template('index.html', tasks=tasks, current_filter=filter_status)
 
 @tasks_bp.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -58,4 +67,28 @@ def delete_task_post(task_id):
     tasks = load_tasks()
     tasks = [task for task in tasks if task['id'] != task_id]
     save_tasks(tasks)
+    return redirect(url_for('tasks.index'))
+
+@tasks_bp.route('/tasks/<int:task_id>/edit', methods=['GET'])
+def edit_task_form(task_id):
+    tasks = load_tasks()
+    task = None
+    for t in tasks:
+        if t['id'] == task_id:
+            task = t
+            break
+    if task:
+        return render_template('edit_task.html', task=task)
+    return redirect(url_for('tasks.index'))
+
+@tasks_bp.route('/tasks/<int:task_id>/edit', methods=['POST'])
+def edit_task_submit(task_id):
+    data = request.form
+    tasks = load_tasks()
+    for task in tasks:
+        if task['id'] == task_id:
+            task['title'] = data.get('title', task['title'])
+            task['description'] = data.get('description', task['description'])
+            save_tasks(tasks)
+            return redirect(url_for('tasks.index'))
     return redirect(url_for('tasks.index'))
