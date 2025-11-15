@@ -30,8 +30,16 @@ def index():
 @tasks_bp.route('/add', methods=['POST'])
 def add_task():
     """Add a new task"""
-    title = request.form.get('title')
-    description = request.form.get('description', '')
+    title = request.form.get('title', '').strip()
+    description = request.form.get('description', '').strip()
+    
+    # Validate title is not empty
+    if not title:
+        filter_status = request.args.get('filter', 'all')
+        sort_by = request.args.get('sort', 'none')
+        tasks = load_tasks()
+        error = "Task title cannot be empty!"
+        return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by, error=error)
     
     tasks = load_tasks()
     new_task = Task(title=title, description=description)
@@ -79,8 +87,15 @@ def edit_task(task_id):
         return redirect(url_for('tasks.index'))
     
     if request.method == 'POST':
-        task.title = request.form.get('title')
-        task.description = request.form.get('description', '')
+        new_title = request.form.get('title', '').strip()
+        
+        # Validate title is not empty
+        if not new_title:
+            error = "Task title cannot be empty!"
+            return render_template('edit_task.html', task=task, error=error)
+        
+        task.title = new_title
+        task.description = request.form.get('description', '').strip()
         save_tasks(tasks)
         return redirect(url_for('tasks.index'))
     
