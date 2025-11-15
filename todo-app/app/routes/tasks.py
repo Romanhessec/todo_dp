@@ -25,7 +25,14 @@ def index():
         # Sort by status (pending first), then by title within each status
         tasks = sorted(tasks, key=lambda x: (x.status, x.title.lower()))
     
-    return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by)
+    # Calculate task counts
+    all_tasks = load_tasks()
+    total_count = len(all_tasks)
+    completed_count = len([t for t in all_tasks if t.status == 'completed'])
+    pending_count = len([t for t in all_tasks if t.status == 'pending'])
+    
+    return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by,
+                         total_count=total_count, completed_count=completed_count, pending_count=pending_count)
 
 @tasks_bp.route('/add', methods=['POST'])
 def add_task():

@@ -10,6 +10,12 @@
     <div class="container">
         <h1>ToDo List</h1>
         
+        <div class="task-counter">
+            <span class="counter-item">Total: <strong>{{ total_count }}</strong></span>
+            <span class="counter-item">Pending: <strong>{{ pending_count }}</strong></span>
+            <span class="counter-item">Completed: <strong>{{ completed_count }}</strong></span>
+        </div>
+
         <div id="task-form">
             <h2>Add New Task</h2>
             {% if error %}
