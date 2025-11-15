@@ -1,103 +1,87 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
 from app.models.task import Task
 from app.utils.storage import load_tasks, save_tasks
 
 tasks_bp = Blueprint('tasks', __name__)
 
-@tasks_bp.route('/', methods=['GET'])
+@tasks_bp.route('/')
 def index():
-    filter_status = request.args.get('filter', 'all')  # Get filter parameter, default to 'all'
-    sort_by = request.args.get('sort', 'none')  # Get sort parameter, default to 'none'
+    """Display all tasks"""
+    filter_status = request.args.get('filter', 'all')
+    sort_by = request.args.get('sort', 'none')
+    
     tasks = load_tasks()
     
-    # Filter tasks based on status
+    # Apply filtering
     if filter_status == 'pending':
-        tasks = [task for task in tasks if task['status'] == 'pending']
+        tasks = [task for task in tasks if task.status == 'pending']
     elif filter_status == 'completed':
-        tasks = [task for task in tasks if task['status'] == 'completed']
-    # If 'all', show all tasks (no filtering needed)
+        tasks = [task for task in tasks if task.status == 'completed']
     
-    # Sort tasks based on the sort parameter
+    # Apply sorting
     if sort_by == 'title':
-        tasks = sorted(tasks, key=lambda x: x['title'].lower())
+        tasks = sorted(tasks, key=lambda x: x.title.lower())
     elif sort_by == 'status':
-        # Sort by status: pending first, then completed
-        tasks = sorted(tasks, key=lambda x: (x['status'] != 'pending', x['title'].lower()))
-    # If 'none', keep original order (no sorting)
+        # Sort by status (pending first), then by title within each status
+        tasks = sorted(tasks, key=lambda x: (x.status, x.title.lower()))
     
     return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by)
 
-@tasks_bp.route('/tasks', methods=['GET'])
-def get_tasks():
-    tasks = load_tasks()
-    return jsonify(tasks), 200
-
-@tasks_bp.route('/tasks', methods=['POST'])
+@tasks_bp.route('/add', methods=['POST'])
 def add_task():
-    data = request.form
-    new_task = Task(title=data['title'], description=data.get('description', ''), status='pending')
+    """Add a new task"""
+    title = request.form.get('title')
+    description = request.form.get('description', '')
+    
     tasks = load_tasks()
-    tasks.append(new_task.to_dict())
+    new_task = Task(title=title, description=description)
+    tasks.append(new_task)
     save_tasks(tasks)
+    
     return redirect(url_for('tasks.index'))
-
-@tasks_bp.route('/tasks/<int:task_id>', methods=['PUT'])
-def edit_task(task_id):
-    data = request.json
-    tasks = load_tasks()
-    for task in tasks:
-        if task['id'] == task_id:
-            task['title'] = data.get('title', task['title'])
-            task['description'] = data.get('description', task['description'])
-            save_tasks(tasks)
-            return jsonify(task), 200
-    return jsonify({'error': 'Task not found'}), 404
-
-@tasks_bp.route('/tasks/<int:task_id>', methods=['DELETE'])
-def delete_task(task_id):
-    tasks = load_tasks()
-    tasks = [task for task in tasks if task['id'] != task_id]
-    save_tasks(tasks)
-    return jsonify({'message': 'Task deleted'}), 200
 
 @tasks_bp.route('/tasks/<int:task_id>/toggle', methods=['POST'])
 def toggle_task(task_id):
+    """Toggle task completion status"""
     tasks = load_tasks()
+    
     for task in tasks:
-        if task['id'] == task_id:
-            # Toggle status between pending and completed
-            task['status'] = 'completed' if task['status'] == 'pending' else 'pending'
-            save_tasks(tasks)
-            return redirect(url_for('tasks.index'))
-    return redirect(url_for('tasks.index'))
-
-@tasks_bp.route('/tasks/<int:task_id>/delete', methods=['POST'])
-def delete_task_post(task_id):
-    tasks = load_tasks()
-    tasks = [task for task in tasks if task['id'] != task_id]
+        if task.task_id == task_id:
+            if task.status == 'pending':
+                task.mark_completed()
+            else:
+                task.mark_pending()
+            break
+    
     save_tasks(tasks)
     return redirect(url_for('tasks.index'))
 
-@tasks_bp.route('/tasks/<int:task_id>/edit', methods=['GET'])
-def edit_task_form(task_id):
+@tasks_bp.route('/tasks/<int:task_id>/delete', methods=['POST'])
+def delete_task(task_id):
+    """Delete a task"""
     tasks = load_tasks()
-    task = None
-    for t in tasks:
-        if t['id'] == task_id:
-            task = t
-            break
-    if task:
-        return render_template('edit_task.html', task=task)
+    tasks = [task for task in tasks if task.task_id != task_id]
+    save_tasks(tasks)
     return redirect(url_for('tasks.index'))
 
-@tasks_bp.route('/tasks/<int:task_id>/edit', methods=['POST'])
-def edit_task_submit(task_id):
-    data = request.form
+@tasks_bp.route('/tasks/<int:task_id>/edit', methods=['GET', 'POST'])
+def edit_task(task_id):
+    """Edit a task"""
     tasks = load_tasks()
-    for task in tasks:
-        if task['id'] == task_id:
-            task['title'] = data.get('title', task['title'])
-            task['description'] = data.get('description', task['description'])
-            save_tasks(tasks)
-            return redirect(url_for('tasks.index'))
-    return redirect(url_for('tasks.index'))
+    task = None
+    
+    for t in tasks:
+        if t.task_id == task_id:
+            task = t
+            break
+    
+    if not task:
+        return redirect(url_for('tasks.index'))
+    
+    if request.method == 'POST':
+        task.title = request.form.get('title')
+        task.description = request.form.get('description', '')
+        save_tasks(tasks)
+        return redirect(url_for('tasks.index'))
+    
+    return render_template('edit_task.html', task=task)
