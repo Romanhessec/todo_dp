@@ -79,6 +79,14 @@ def delete_task(task_id):
     save_tasks(tasks)
     return redirect(url_for('tasks.index'))
 
+@tasks_bp.route('/clear-completed', methods=['POST'])
+def clear_completed():
+    """Delete all completed tasks"""
+    tasks = load_tasks()
+    tasks = [task for task in tasks if task.status != 'completed']
+    save_tasks(tasks)
+    return redirect(url_for('tasks.index'))
+
 @tasks_bp.route('/tasks/<int:task_id>/edit', methods=['GET', 'POST'])
 def edit_task(task_id):
     """Edit a task"""

@@ -82,7 +82,28 @@ h2 {
 
 /* Filter and Sort Buttons */
 .filter-sort-section {
-    margin: 20px 0;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-row,
+.sort-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.button-group-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.95em;
+    min-width: 70px;
 }
 
 .filter-sort-section strong {
@@ -129,6 +150,25 @@ h2 {
 .sort-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Clear All Completed Button */
+.btn-clear-completed {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.btn-clear-completed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
 
 /* Task List */

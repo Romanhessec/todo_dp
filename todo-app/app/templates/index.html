@@ -30,20 +30,31 @@
 
         <div id="task-list">
             <h2>Your Tasks</h2>
-            
-            <div class="filter-sort-section">
-                <strong>Filter:</strong>
-                <a href="{{ url_for('tasks.index', filter='all', sort=current_sort) }}" class="filter-btn {% if current_filter == 'all' %}active{% endif %}">All</a>
-                <a href="{{ url_for('tasks.index', filter='pending', sort=current_sort) }}" class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">Pending</a>
-                <a href="{{ url_for('tasks.index', filter='completed', sort=current_sort) }}" class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">Completed</a>
+                 <div class="filter-sort-section">
+            <div class="filter-row">
+                <span class="button-group-label">Filter by:</span>
+                <div class="filter-buttons">
+                    <a href="{{ url_for('tasks.index', filter='all', sort=current_sort) }}" class="filter-btn {% if current_filter == 'all' %}active{% endif %}">All</a>
+                    <a href="{{ url_for('tasks.index', filter='pending', sort=current_sort) }}" class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">Pending</a>
+                    <a href="{{ url_for('tasks.index', filter='completed', sort=current_sort) }}" class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">Completed</a>
+                </div>
+                
+                {% if completed_count > 0 %}
+                <form action="{{ url_for('tasks.clear_completed') }}" method="POST" style="display:inline; margin-left: auto;" onsubmit="return confirm('Are you sure you want to delete all {{ completed_count }} completed tasks?');">
+                    <button type="submit" class="btn btn-clear-completed">Clear All Completed ({{ completed_count }})</button>
+                </form>
+                {% endif %}
             </div>
             
-            <div class="filter-sort-section">
-                <strong>Sort by:</strong>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='none') }}" class="sort-btn {% if current_sort == 'none' %}active{% endif %}">Default</a>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='title') }}" class="sort-btn {% if current_sort == 'title' %}active{% endif %}">Title</a>
-                <a href="{{ url_for('tasks.index', filter=current_filter, sort='status') }}" class="sort-btn {% if current_sort == 'status' %}active{% endif %}">Status</a>
+            <div class="sort-row">
+                <span class="button-group-label">Sort by:</span>
+                <div class="sort-buttons">
+                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='none') }}" class="sort-btn {% if current_sort == 'none' %}active{% endif %}">Default</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='title') }}" class="sort-btn {% if current_sort == 'title' %}active{% endif %}">Title</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='status') }}" class="sort-btn {% if current_sort == 'status' %}active{% endif %}">Status</a>
+                </div>
             </div>
+        </div>
             
             {% if tasks %}
                 <ul>
