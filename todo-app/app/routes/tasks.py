@@ -46,7 +46,14 @@ def add_task():
         sort_by = request.args.get('sort', 'none')
         tasks = load_tasks()
         error = "Task title cannot be empty!"
-        return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by, error=error)
+        
+        # Calculate task counts for error page
+        total_count = len(tasks)
+        completed_count = len([t for t in tasks if t.status == 'completed'])
+        pending_count = len([t for t in tasks if t.status == 'pending'])
+        
+        return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by, 
+                             error=error, total_count=total_count, completed_count=completed_count, pending_count=pending_count)
     
     tasks = load_tasks()
     new_task = Task(title=title, description=description)
