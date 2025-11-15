@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Edit Task</h1>
         
-        <form action="{{ url_for('tasks.edit_task_submit', task_id=task.id) }}" method="POST">
+        <form action="{{ url_for('tasks.edit_task', task_id=task.task_id) }}" method="POST">
             <div>
                 <label for="title">Task Title:</label><br>
                 <input type="text" id="title" name="title" value="{{ task.title }}" required style="width: 100%; padding: 8px; margin: 10px 0;">
