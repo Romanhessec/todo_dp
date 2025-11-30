@@ -76,20 +76,41 @@ The analysis will be presented as a technical article highlighting differences i
 
 ### 📦 Installation Instructions
 
-1. Clone the repository:
-   ```
+1. **Clone the repository:**
+   ```bash
    git clone https://github.com/Romanhessec/todo_dp
-   cd todo-app
+   cd todo_dp
    ```
 
-2. Install the required dependencies:
+2. **Start PostgreSQL database (using Docker):**
+   ```bash
+   docker run --name todo-postgres \
+     -e POSTGRES_PASSWORD=todopass \
+     -e POSTGRES_USER=todouser \
+     -e POSTGRES_DB=todoapp \
+     -p 5432:5432 \
+     -d postgres:15
    ```
+   
+   **Note:** For subsequent runs, just use `docker start todo-postgres`
+
+3. **Install Python dependencies:**
+   ```bash
+   cd todo-app
    pip install -r requirements.txt
    ```
 
-3. Run the application:
-   ```
+4. **Run the application:**
+   ```bash
    python run.py
    ```
+   
+   The application will automatically create database tables on first run.
 
-4. Open your web browser and navigate to `http://127.0.0.1:5000` to access the ToDo application.
+5. **Access the application:**
+   Open your browser and navigate to `http://127.0.0.1:5000/`
+
+6. **(Optional) View database with DBeaver:**
+   - Install: `sudo snap install dbeaver-ce`
+   - Create connection with: Host=`localhost`, Port=`5432`, Database=`todoapp`, Username=`todouser`, Password=`todopass`
+   - Browse the `tasks` table to see your data

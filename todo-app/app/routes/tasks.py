@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from app.models.task import Task
-from app.utils.storage import load_tasks, save_tasks
+from app.utils.storage import load_tasks, save_task, delete_task, update_task
 
 tasks_bp = Blueprint('tasks', __name__)
 
@@ -22,7 +22,6 @@ def index():
     if sort_by == 'title':
         tasks = sorted(tasks, key=lambda x: x.title.lower())
     elif sort_by == 'status':
-        # Sort by status (pending first), then by title within each status
         tasks = sorted(tasks, key=lambda x: (x.status, x.title.lower()))
     
     # Calculate task counts
@@ -55,58 +54,43 @@ def add_task():
         return render_template('index.html', tasks=tasks, current_filter=filter_status, current_sort=sort_by, 
                              error=error, total_count=total_count, completed_count=completed_count, pending_count=pending_count)
     
-    tasks = load_tasks()
     new_task = Task(title=title, description=description)
-    tasks.append(new_task)
-    save_tasks(tasks)
+    save_task(new_task)
     
     return redirect(url_for('tasks.index'))
 
 @tasks_bp.route('/tasks/<int:task_id>/toggle', methods=['POST'])
 def toggle_task(task_id):
     """Toggle task completion status"""
-    tasks = load_tasks()
+    task = Task.query.get_or_404(task_id)
     
-    for task in tasks:
-        if task.task_id == task_id:
-            if task.status == 'pending':
-                task.mark_completed()
-            else:
-                task.mark_pending()
-            break
+    if task.status == 'pending':
+        task.mark_completed()
+    else:
+        task.mark_pending()
     
-    save_tasks(tasks)
+    update_task()
     return redirect(url_for('tasks.index'))
 
 @tasks_bp.route('/tasks/<int:task_id>/delete', methods=['POST'])
-def delete_task(task_id):
+def delete_task_route(task_id):
     """Delete a task"""
-    tasks = load_tasks()
-    tasks = [task for task in tasks if task.task_id != task_id]
-    save_tasks(tasks)
+    task = Task.query.get_or_404(task_id)
+    delete_task(task)
     return redirect(url_for('tasks.index'))
 
 @tasks_bp.route('/clear-completed', methods=['POST'])
 def clear_completed():
     """Delete all completed tasks"""
-    tasks = load_tasks()
-    tasks = [task for task in tasks if task.status != 'completed']
-    save_tasks(tasks)
+    completed_tasks = Task.query.filter_by(status='completed').all()
+    for task in completed_tasks:
+        delete_task(task)
     return redirect(url_for('tasks.index'))
 
 @tasks_bp.route('/tasks/<int:task_id>/edit', methods=['GET', 'POST'])
 def edit_task(task_id):
     """Edit a task"""
-    tasks = load_tasks()
-    task = None
-    
-    for t in tasks:
-        if t.task_id == task_id:
-            task = t
-            break
-    
-    if not task:
-        return redirect(url_for('tasks.index'))
+    task = Task.query.get_or_404(task_id)
     
     if request.method == 'POST':
         new_title = request.form.get('title', '').strip()
@@ -118,7 +102,7 @@ def edit_task(task_id):
         
         task.title = new_title
         task.description = request.form.get('description', '').strip()
-        save_tasks(tasks)
+        update_task()
         return redirect(url_for('tasks.index'))
     
     return render_template('edit_task.html', task=task)

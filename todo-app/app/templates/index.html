@@ -67,20 +67,19 @@
                                 {% if task.description %}
                                     <p class="task-description">{{ task.description }}</p>
                                 {% endif %}
-                                <small class="task-timestamp">Created: {{ task.created_at[:19].replace('T', ' ') }}</small>
+                                <small class="task-timestamp">Created: {{ task.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
                             </div>
-                            <div class="task-actions">
-                                <form action="{{ url_for('tasks.toggle_task', task_id=task.task_id) }}" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn btn-toggle">
-                                        {% if task.status == 'pending' %}Mark Complete{% else %}Mark Pending{% endif %}
-                                    </button>
-                                </form>
-                                <form action="{{ url_for('tasks.edit_task', task_id=task.task_id) }}" method="GET" style="display:inline;">
-                                    <button type="submit" class="btn btn-edit">Edit</button>
-                                </form>
-                                <form action="{{ url_for('tasks.delete_task', task_id=task.task_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
-                                    <button type="submit" class="btn btn-delete">Delete</button>
-                                </form>
+                            <div class="task-actions">                    <form action="{{ url_for('tasks.toggle_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-toggle">
+                            {% if task.status == 'pending' %}Mark Complete{% else %}Mark Pending{% endif %}
+                        </button>
+                    </form>
+                    <form action="{{ url_for('tasks.edit_task', task_id=task.id) }}" method="GET" style="display:inline;">
+                        <button type="submit" class="btn btn-edit">Edit</button>
+                    </form>
+                    <form action="{{ url_for('tasks.delete_task_route', task_id=task.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
                             </div>
                         </li>
                     {% endfor %}
