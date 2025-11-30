@@ -8,7 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>ToDo List</h1>
+        <div class="header-section">
+            <h1>ToDo List</h1>
+            <div class="user-info">
+                <span>Welcome, <strong>{{ current_user.username }}</strong>!</span>
+                <a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a>
+            </div>
+        </div>
         
         <div class="task-counter">
             <span class="counter-item">Total: <strong>{{ total_count }}</strong></span>
