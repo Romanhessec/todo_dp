@@ -11,6 +11,7 @@ class Task(db.Model):
     description = db.Column(db.Text, default='')
     status = db.Column(db.String(20), default='pending')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
     def mark_completed(self):
         """Mark task as completed"""
