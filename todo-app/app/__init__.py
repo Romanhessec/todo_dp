@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-# Simple module-level instances (NO Singleton pattern)
+# Application-wide singletons
 db = SQLAlchemy()
 login_manager = LoginManager()
 
@@ -24,6 +24,15 @@ def create_app():
     from .routes.auth import auth_bp
     app.register_blueprint(tasks_bp)
     app.register_blueprint(auth_bp)
+
+    # Wire up DataManager observers once per app (Singleton + Observer)
+    from app.utils.storage import DataManager
+    from app.patterns.observer import StatsObserver, AuditObserver
+
+    data_manager = DataManager()
+    data_manager.register_observer(StatsObserver(data_manager))
+    data_manager.register_observer(AuditObserver(app.logger.info))
+    app.data_manager = data_manager
     
     # Create tables if they don't exist
     with app.app_context():

@@ -65,7 +65,7 @@ The analysis will be presented as a technical article highlighting differences i
 - Code clarity and readability  
 - Ease of maintenance and extensibility  
 - Degree of responsibility separation (SRP – Single Responsibility Principle)  
- Component reusability  
+- Component reusability  
 
 #### 🔸 Quantitative Metrics
 - Lines of Code (LOC)  

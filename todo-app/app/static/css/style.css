@@ -89,7 +89,8 @@ h2 {
 }
 
 #task-form input[type="text"],
-#task-form textarea {
+#task-form textarea,
+#task-form select {
     width: 100%;
     padding: 12px;
     border: 2px solid #ddd;
@@ -97,17 +98,30 @@ h2 {
     font-size: 14px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fff;
+    color: #2d3748;
+    appearance: none;
 }
 
 #task-form input[type="text"]:focus,
-#task-form textarea:focus {
+#task-form textarea:focus,
+#task-form select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+}
+
+#task-form select {
+    background-image: linear-gradient(45deg, transparent 50%, #764ba2 50%),
+                      linear-gradient(135deg, #764ba2 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+    background-size: 7px 7px, 7px 7px;
+    background-repeat: no-repeat;
 }
 
 #task-form button[type="submit"] {
-    background-color: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -115,16 +129,50 @@ h2 {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: box-shadow 0.3s, transform 0.1s;
 }
 
 #task-form button[type="submit"]:hover {
-    background-color: #5568d3;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
     transform: translateY(-2px);
 }
 
 #task-form button[type="submit"]:active {
     transform: translateY(0);
+}
+
+.task-type-group {
+    max-width: 240px;
+    margin-bottom: 15px;
+}
+
+.task-type-group label {
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.history-actions button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
+}
+
+.history-actions button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5568d3 0%, #6b46c1 100%);
+    transform: translateY(-1px);
+}
+
+.history-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Filter and Sort Buttons */

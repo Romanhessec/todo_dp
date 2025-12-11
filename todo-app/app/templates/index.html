@@ -30,19 +30,43 @@
             <form action="{{ url_for('tasks.add_task') }}" method="POST">
                 <input type="text" name="title" placeholder="Task Title" required>
                 <textarea name="description" placeholder="Task Description"></textarea>
+                <div class="task-type-group">
+                    <label for="task_type">Task Type</label>
+                    <select id="task_type" name="task_type" aria-label="Task type">
+                        <option value="simple">Simple</option>
+                        <option value="priority">Priority</option>
+                        <option value="recurring">Recurring</option>
+                    </select>
+                </div>
                 <button type="submit">Add Task</button>
             </form>
+            <div class="history-actions" style="margin-top:10px; display:flex; gap:8px;">
+                <form action="{{ url_for('tasks.undo_last') }}" method="POST">
+                    <button type="submit" {% if not history_state or not history_state.can_undo %}disabled{% endif %}>Undo</button>
+                </form>
+                <form action="{{ url_for('tasks.redo_last') }}" method="POST">
+                    <button type="submit" {% if not history_state or not history_state.can_redo %}disabled{% endif %}>Redo</button>
+                </form>
+            </div>
         </div>
 
         <div id="task-list">
             <h2>Your Tasks</h2>
                  <div class="filter-sort-section">
             <div class="filter-row">
-                <span class="button-group-label">Filter by:</span>
+                <span class="button-group-label">Status:</span>
                 <div class="filter-buttons">
-                    <a href="{{ url_for('tasks.index', filter='all', sort=current_sort) }}" class="filter-btn {% if current_filter == 'all' %}active{% endif %}">All</a>
-                    <a href="{{ url_for('tasks.index', filter='pending', sort=current_sort) }}" class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">Pending</a>
-                    <a href="{{ url_for('tasks.index', filter='completed', sort=current_sort) }}" class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">Completed</a>
+                    <a href="{{ url_for('tasks.index', filter='all', type=current_type, sort=current_sort) }}" class="filter-btn {% if current_filter == 'all' %}active{% endif %}">All</a>
+                    <a href="{{ url_for('tasks.index', filter='pending', type=current_type, sort=current_sort) }}" class="filter-btn {% if current_filter == 'pending' %}active{% endif %}">Pending</a>
+                    <a href="{{ url_for('tasks.index', filter='completed', type=current_type, sort=current_sort) }}" class="filter-btn {% if current_filter == 'completed' %}active{% endif %}">Completed</a>
+                </div>
+                
+                <span class="button-group-label" style="margin-left: 20px;">Type:</span>
+                <div class="filter-buttons">
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type='all', sort=current_sort) }}" class="filter-btn {% if current_type == 'all' %}active{% endif %}">All Types</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type='simple', sort=current_sort) }}" class="filter-btn {% if current_type == 'simple' %}active{% endif %}">Simple</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type='priority', sort=current_sort) }}" class="filter-btn {% if current_type == 'priority' %}active{% endif %}">Priority</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type='recurring', sort=current_sort) }}" class="filter-btn {% if current_type == 'recurring' %}active{% endif %}">Recurring</a>
                 </div>
                 
                 {% if completed_count > 0 %}
@@ -55,9 +79,9 @@
             <div class="sort-row">
                 <span class="button-group-label">Sort by:</span>
                 <div class="sort-buttons">
-                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='none') }}" class="sort-btn {% if current_sort == 'none' %}active{% endif %}">Default</a>
-                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='title') }}" class="sort-btn {% if current_sort == 'title' %}active{% endif %}">Title</a>
-                    <a href="{{ url_for('tasks.index', filter=current_filter, sort='status') }}" class="sort-btn {% if current_sort == 'status' %}active{% endif %}">Status</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type=current_type, sort='none') }}" class="sort-btn {% if current_sort == 'none' %}active{% endif %}">Default</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type=current_type, sort='title') }}" class="sort-btn {% if current_sort == 'title' %}active{% endif %}">Title</a>
+                    <a href="{{ url_for('tasks.index', filter=current_filter, type=current_type, sort='status') }}" class="sort-btn {% if current_sort == 'status' %}active{% endif %}">Status</a>
                 </div>
             </div>
         </div>
@@ -70,6 +94,7 @@
                                 <h3 style="{% if task.status == 'completed' %}text-decoration: line-through;{% endif %}">
                                     {{ task.title }}
                                 </h3>
+                                <small class="task-type">Type: {{ task.task_type|default('simple')|capitalize }}</small>
                                 {% if task.description %}
                                     <p class="task-description">{{ task.description }}</p>
                                 {% endif %}
