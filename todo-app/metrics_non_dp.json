@@ -1,0 +1,42 @@
+{
+  "implementation": "non-dp",
+  "timestamp": 1768664001.3577409,
+  "performance": {
+    "total_requests": 2,
+    "avg_execution_time_ms": 0.5998110771179199,
+    "max_execution_time_ms": 0.7564377784729004,
+    "min_execution_time_ms": 0.44318437576293945,
+    "avg_memory_mb": 0.0,
+    "max_memory_mb": 0
+  },
+  "database": {
+    "total_queries": 3,
+    "avg_query_time_ms": 1.0,
+    "max_query_time_ms": 2.0,
+    "min_query_time_ms": 0.5
+  },
+  "detailed_metrics": [
+    {
+      "function": "register",
+      "timestamp": 1768663997.3974764,
+      "execution_time_ms": 0.44318437576293945,
+      "memory_used_mb": 0,
+      "peak_memory_mb": 0,
+      "cpu_percent": 0
+    },
+    {
+      "function": "login",
+      "timestamp": 1768663997.5512993,
+      "execution_time_ms": 0.7564377784729004,
+      "memory_used_mb": 0,
+      "peak_memory_mb": 0,
+      "cpu_percent": 0
+    }
+  ],
+  "code_metrics": {
+    "files": 1,
+    "functions": 3,
+    "classes": 0,
+    "lines_of_code": "Run: radon raw app/routes/auth.py"
+  }
+}
