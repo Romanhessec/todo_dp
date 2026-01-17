@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import os
 
 # Simple module-level instances (NO Singleton pattern)
 db = SQLAlchemy()
@@ -8,6 +9,14 @@ login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
+    
+    # Check if we're in testing mode (DATABASE_URL environment variable)
+    if 'DATABASE_URL' in os.environ:
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+    else:
+        # Use PostgreSQL for production
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://todouser:todopass@localhost:5432/todoapp'
+    
     app.config.from_object('app.config.Config')
     app.config['SECRET_KEY'] = 'dev-secret-key-change-in-production'
     
