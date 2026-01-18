@@ -1,0 +1,740 @@
+{
+  "implementation": "dp",
+  "timestamp": 1768730794.2977843,
+  "performance": {
+    "total_requests": 2,
+    "avg_execution_time_ms": 0.5926847457885742,
+    "max_execution_time_ms": 0.7427549362182617,
+    "min_execution_time_ms": 0.4426145553588867,
+    "avg_memory_mb": 0.0,
+    "max_memory_mb": 0
+  },
+  "database": {
+    "total_queries": 3,
+    "avg_query_time_ms": 1.0,
+    "max_query_time_ms": 2.0,
+    "min_query_time_ms": 0.5
+  },
+  "detailed_metrics": [
+    {
+      "function": "register",
+      "timestamp": 1768730790.322436,
+      "execution_time_ms": 0.4426145553588867,
+      "memory_used_mb": 0,
+      "peak_memory_mb": 0,
+      "cpu_percent": 0
+    },
+    {
+      "function": "login",
+      "timestamp": 1768730790.476553,
+      "execution_time_ms": 0.7427549362182617,
+      "memory_used_mb": 0,
+      "peak_memory_mb": 0,
+      "cpu_percent": 0
+    }
+  ],
+  "code_metrics": {
+    "pattern": "app/**/*.py",
+    "total_files": 16,
+    "files_analyzed": [
+      {
+        "file": "app/__init__.py",
+        "loc": 47,
+        "maintainability": "A",
+        "functions": 2,
+        "classes": 0
+      },
+      {
+        "file": "app/config.py",
+        "loc": 9,
+        "maintainability": "A",
+        "functions": 0,
+        "classes": 1
+      },
+      {
+        "file": "app/utils/__init__.py",
+        "loc": 1,
+        "maintainability": "A",
+        "functions": 0,
+        "classes": 0
+      },
+      {
+        "file": "app/utils/storage.py",
+        "loc": 117,
+        "maintainability": "A",
+        "functions": 16,
+        "classes": 1
+      },
+      {
+        "file": "app/utils/metrics.py",
+        "loc": 115,
+        "maintainability": "A",
+        "functions": 9,
+        "classes": 2
+      },
+      {
+        "file": "app/patterns/singleton.py",
+        "loc": 8,
+        "maintainability": "A",
+        "functions": 1,
+        "classes": 1
+      },
+      {
+        "file": "app/patterns/__init__.py",
+        "loc": 1,
+        "maintainability": "A",
+        "functions": 0,
+        "classes": 0
+      },
+      {
+        "file": "app/patterns/factory.py",
+        "loc": 46,
+        "maintainability": "A",
+        "functions": 5,
+        "classes": 5
+      },
+      {
+        "file": "app/patterns/observer.py",
+        "loc": 36,
+        "maintainability": "A",
+        "functions": 5,
+        "classes": 4
+      },
+      {
+        "file": "app/patterns/command.py",
+        "loc": 155,
+        "maintainability": "A",
+        "functions": 20,
+        "classes": 6
+      },
+      {
+        "file": "app/routes/__init__.py",
+        "loc": 6,
+        "maintainability": "A",
+        "functions": 0,
+        "classes": 0
+      },
+      {
+        "file": "app/routes/auth.py",
+        "loc": 91,
+        "maintainability": "A",
+        "functions": 3,
+        "classes": 0
+      },
+      {
+        "file": "app/routes/tasks.py",
+        "loc": 126,
+        "maintainability": "A",
+        "functions": 8,
+        "classes": 0
+      },
+      {
+        "file": "app/models/__init__.py",
+        "loc": 3,
+        "maintainability": "A",
+        "functions": 0,
+        "classes": 0
+      },
+      {
+        "file": "app/models/task.py",
+        "loc": 42,
+        "maintainability": "A",
+        "functions": 5,
+        "classes": 1
+      },
+      {
+        "file": "app/models/user.py",
+        "loc": 28,
+        "maintainability": "A",
+        "functions": 3,
+        "classes": 1
+      }
+    ],
+    "cyclomatic_complexity": {
+      "average_grade_functions": "A",
+      "average_grade_classes": "A",
+      "total_functions": 77,
+      "total_classes": 22,
+      "functions": [
+        {
+          "line": 9,
+          "name": "create_app",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 44,
+          "name": "load_user",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 60,
+          "class": "DataManager",
+          "name": "get_tasks",
+          "complexity_grade": "C"
+        },
+        {
+          "line": 45,
+          "class": "DataManager",
+          "name": "refresh_stats",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 30,
+          "class": "DataManager",
+          "name": "notify",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 54,
+          "class": "DataManager",
+          "name": "get_stats",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 78,
+          "class": "DataManager",
+          "name": "get_task_for_user",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 109,
+          "class": "DataManager",
+          "name": "clear_completed",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 21,
+          "class": "DataManager",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 27,
+          "class": "DataManager",
+          "name": "register_observer",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 35,
+          "class": "DataManager",
+          "name": "_history",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 38,
+          "class": "DataManager",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 41,
+          "class": "DataManager",
+          "name": "redo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 85,
+          "class": "DataManager",
+          "name": "add_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 91,
+          "class": "DataManager",
+          "name": "toggle_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 97,
+          "class": "DataManager",
+          "name": "delete_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 103,
+          "class": "DataManager",
+          "name": "edit_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 115,
+          "class": "DataManager",
+          "name": "history_state",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 59,
+          "class": "PerformanceMetrics",
+          "name": "get_summary",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 93,
+          "class": "DatabaseMetrics",
+          "name": "get_summary",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 13,
+          "class": "PerformanceMetrics",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 17,
+          "class": "PerformanceMetrics",
+          "name": "measure_endpoint",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 50,
+          "class": "PerformanceMetrics",
+          "name": "get_metrics",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 54,
+          "class": "PerformanceMetrics",
+          "name": "save_metrics",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 80,
+          "class": "DatabaseMetrics",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 84,
+          "class": "DatabaseMetrics",
+          "name": "record_query",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 107,
+          "class": "DatabaseMetrics",
+          "name": "reset",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 5,
+          "class": "SingletonMeta",
+          "name": "__call__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 8,
+          "class": "TaskCreator",
+          "name": "create",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 13,
+          "class": "SimpleTaskCreator",
+          "name": "create",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 18,
+          "class": "PriorityTaskCreator",
+          "name": "create",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 27,
+          "class": "RecurringTaskCreator",
+          "name": "create",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 44,
+          "class": "TaskFactory",
+          "name": "create_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 14,
+          "class": "TaskObserver",
+          "name": "update",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 21,
+          "class": "StatsObserver",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 24,
+          "class": "StatsObserver",
+          "name": "update",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 31,
+          "class": "AuditObserver",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 34,
+          "class": "AuditObserver",
+          "name": "update",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 118,
+          "class": "ToggleTaskCommand",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 27,
+          "class": "CommandHistory",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 35,
+          "class": "CommandHistory",
+          "name": "redo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 64,
+          "class": "AddTaskCommand",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 88,
+          "class": "DeleteTaskCommand",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 125,
+          "class": "ToggleTaskCommand",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 143,
+          "class": "EditTaskCommand",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 150,
+          "class": "EditTaskCommand",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 10,
+          "class": "Command",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 13,
+          "class": "Command",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 18,
+          "class": "CommandHistory",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 22,
+          "class": "CommandHistory",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 44,
+          "class": "CommandHistory",
+          "name": "can_undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 48,
+          "class": "CommandHistory",
+          "name": "can_redo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 53,
+          "class": "AddTaskCommand",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 58,
+          "class": "AddTaskCommand",
+          "name": "execute",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 73,
+          "class": "DeleteTaskCommand",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 95,
+          "class": "DeleteTaskCommand",
+          "name": "undo",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 112,
+          "class": "ToggleTaskCommand",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 134,
+          "class": "EditTaskCommand",
+          "name": "__init__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 9,
+          "name": "register",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 56,
+          "name": "login",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 87,
+          "name": "logout",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 92,
+          "name": "edit_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 36,
+          "name": "add_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 113,
+          "name": "undo_last",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 122,
+          "name": "redo_last",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 12,
+          "name": "index",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 71,
+          "name": "toggle_task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 78,
+          "name": "delete_task_route",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 85,
+          "name": "clear_completed",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 26,
+          "class": "Task",
+          "name": "edit",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 18,
+          "class": "Task",
+          "name": "mark_completed",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 22,
+          "class": "Task",
+          "name": "mark_pending",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 33,
+          "class": "Task",
+          "name": "to_dict",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 41,
+          "class": "Task",
+          "name": "__repr__",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 19,
+          "class": "User",
+          "name": "set_password",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 23,
+          "class": "User",
+          "name": "check_password",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 27,
+          "class": "User",
+          "name": "__repr__",
+          "complexity_grade": "A"
+        }
+      ],
+      "classes": [
+        {
+          "line": 3,
+          "name": "Config",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 18,
+          "name": "DataManager",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 10,
+          "name": "PerformanceMetrics",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 77,
+          "name": "DatabaseMetrics",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 1,
+          "name": "SingletonMeta",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 7,
+          "name": "TaskCreator",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 12,
+          "name": "SimpleTaskCreator",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 17,
+          "name": "PriorityTaskCreator",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 26,
+          "name": "RecurringTaskCreator",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 36,
+          "name": "TaskFactory",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 13,
+          "name": "TaskObserver",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 18,
+          "name": "StatsObserver",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 28,
+          "name": "AuditObserver",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 7,
+          "name": "TaskEvent",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 111,
+          "name": "ToggleTaskCommand",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 133,
+          "name": "EditTaskCommand",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 9,
+          "name": "Command",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 17,
+          "name": "CommandHistory",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 52,
+          "name": "AddTaskCommand",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 72,
+          "name": "DeleteTaskCommand",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 5,
+          "name": "Task",
+          "complexity_grade": "A"
+        },
+        {
+          "line": 6,
+          "name": "User",
+          "complexity_grade": "A"
+        }
+      ]
+    },
+    "raw_metrics": {
+      "LOC": 831,
+      "LLOC": 561,
+      "SLOC": 585,
+      "Comments": 45,
+      "Blank": 167
+    },
+    "summary": {
+      "total_files": 16,
+      "total_classes": 22,
+      "total_functions": 77,
+      "lines_of_code": 831,
+      "logical_lines": 561,
+      "source_lines": 585,
+      "comments": 45,
+      "blank_lines": 167
+    }
+  }
+}
