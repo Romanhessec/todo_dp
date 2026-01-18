@@ -1,11 +1,11 @@
 {
   "implementation": "non-dp",
-  "timestamp": 1768664001.3577409,
+  "timestamp": 1768663756.1313682,
   "performance": {
     "total_requests": 2,
-    "avg_execution_time_ms": 0.5998110771179199,
-    "max_execution_time_ms": 0.7564377784729004,
-    "min_execution_time_ms": 0.44318437576293945,
+    "avg_execution_time_ms": 0.6012463569641113,
+    "max_execution_time_ms": 0.7765412330627441,
+    "min_execution_time_ms": 0.4259514808654785,
     "avg_memory_mb": 0.0,
     "max_memory_mb": 0
   },
@@ -18,25 +18,63 @@
   "detailed_metrics": [
     {
       "function": "register",
-      "timestamp": 1768663997.3974764,
-      "execution_time_ms": 0.44318437576293945,
+      "timestamp": 1768663752.1186893,
+      "execution_time_ms": 0.4259514808654785,
       "memory_used_mb": 0,
       "peak_memory_mb": 0,
       "cpu_percent": 0
     },
     {
       "function": "login",
-      "timestamp": 1768663997.5512993,
-      "execution_time_ms": 0.7564377784729004,
+      "timestamp": 1768663752.275656,
+      "execution_time_ms": 0.7765412330627441,
       "memory_used_mb": 0,
       "peak_memory_mb": 0,
       "cpu_percent": 0
     }
   ],
   "code_metrics": {
-    "files": 1,
-    "functions": 3,
-    "classes": 0,
-    "lines_of_code": "Run: radon raw app/routes/auth.py"
+    "file": "app/routes/auth.py",
+    "cyclomatic_complexity": {
+      "average_grade": "B",
+      "functions": [
+        {
+          "line": 9,
+          "name": "register",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 56,
+          "name": "login",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 87,
+          "name": "logout",
+          "complexity_grade": "A"
+        }
+      ]
+    },
+    "maintainability_index": "A",
+    "raw_metrics": {
+      "LOC": 91,
+      "LLOC": 62,
+      "SLOC": 59,
+      "Comments": 8,
+      "Single comments": 11,
+      "Multi": 0,
+      "Blank": 21,
+      "(C % L)": "9%",
+      "(C % S)": "14%",
+      "(C + M % L)": "9%"
+    },
+    "summary": {
+      "total_functions": 3,
+      "lines_of_code": 91,
+      "logical_lines": 62,
+      "source_lines": 59,
+      "comments": 8,
+      "blank_lines": 21
+    }
   }
 }
