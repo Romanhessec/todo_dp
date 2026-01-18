@@ -34,9 +34,47 @@
     }
   ],
   "code_metrics": {
-    "files": 1,
-    "functions": 3,
-    "classes": 0,
-    "lines_of_code": "Run: radon raw app/routes/auth.py"
+    "file": "app/routes/auth.py",
+    "cyclomatic_complexity": {
+      "average_grade": "B",
+      "functions": [
+        {
+          "line": 9,
+          "name": "register",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 56,
+          "name": "login",
+          "complexity_grade": "B"
+        },
+        {
+          "line": 87,
+          "name": "logout",
+          "complexity_grade": "A"
+        }
+      ]
+    },
+    "maintainability_index": "A",
+    "raw_metrics": {
+      "LOC": 91,
+      "LLOC": 62,
+      "SLOC": 59,
+      "Comments": 8,
+      "Single comments": 11,
+      "Multi": 0,
+      "Blank": 21,
+      "(C % L)": "9%",
+      "(C % S)": "14%",
+      "(C + M % L)": "9%"
+    },
+    "summary": {
+      "total_functions": 3,
+      "lines_of_code": 91,
+      "logical_lines": 62,
+      "source_lines": 59,
+      "comments": 8,
+      "blank_lines": 21
+    }
   }
 }
